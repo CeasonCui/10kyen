@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int h(int a, int b)
 {
@@ -14,6 +15,7 @@ int main(int argc, char **argv)
     int aite[2] = {0, 0};
     int history[3][10];
     num_game = atoi(argv[1]);
+    srand(time(NULL));
     for (int a = 1; a <= 2; ++a)
     {
         for (i = 1; i <= 10; ++i)
@@ -21,7 +23,7 @@ int main(int argc, char **argv)
             printf("1000\n");
             fflush(stdout);
             scanf("%d", &n);
-            history[a - 1][i - 1]=n;
+            history[a - 1][i - 1] = n;
         }
     }
     int b = 1;
@@ -108,9 +110,9 @@ int main(int argc, char **argv)
         { //minus1
             for (j = 4; j <= num_game; ++j)
             {
-                int sum = 0;                
+                int sum = 0;
                 //defense mode
-                int d = -2;     //Derivation
+                int d = -2; //Derivation
                 int n = 10; //remaining rounds
                 bet = (10000 * 2 / n - (n - 1) * d) / 2;
                 printf("%d\n", bet); //1
@@ -133,96 +135,100 @@ int main(int argc, char **argv)
             }
         }
     }
-    else{//random
+    else
+    { //random
         double history_exp[10];
         double history_sum = 0.0;
-        for(int a=0;a<10;a++){
-            history_exp[a]=(history[0][a]+history[1][a])/2;
+        for (int a = 0; a < 10; a++)
+        {
+            history_exp[a] = (history[0][a] + history[1][a]) / 2;
             history_sum += history_exp[a];
         }
-        
-        for (j = 3; j <= num_game; ++j){
-            int sum = 0;  
-            for(int b=0;b<9;b++){
-                for(int a=0;a<10;a++){
-                    history_exp[a] = history_exp[a] / history_sum * 10000;
-                }
-                bet=history_exp[b]-1;
-                bet=bet>0?bet:0;
+
+        for (j = 3; j <= num_game; ++j)
+        {
+            int sum = 0;
+            for (int b = 0; b < 9; b++)
+            {
+                // for (int a = 0; a < 10; a++)
+                // {
+                //     history_exp[a] = history_exp[a] / history_sum * 10000;
+                // }
+                bet = history_exp[b] - 1;
+                bet = bet > 0 ? bet : 0; // prevent minus
+                bet = (10000 - sum > bet) ? bet : (10000 - sum); // prevent more than 10000
                 printf("%d\n", bet); //1-9
                 fflush(stdout);
                 sum += bet;
                 scanf("%d", &n);
-                history_exp[b]=(history_exp[b]*(j-1)+n)/j;
+                history_exp[b] = (history_exp[b] * (j - 1) + n) / j;
                 history_sum = 0.0;
-                for(int a=0;a<10;a++){
+                for (int a = 0; a < 10; a++)
+                {
                     history_sum += history_exp[a];
                 }
-                
             }
             bet = 10000 - sum;
             printf("%d\n", bet); //10
             fflush(stdout);
             scanf("%d", &n);
-            history_exp[9]=(history_exp[b]*(j-1)+n)/j;
+            history_exp[9] = (history_exp[b] * (j - 1) + n) / j;
         }
     }
     exit(EXIT_SUCCESS);
 }
 
-    // for (j = 1; j <= num_game; ++j)
-    // {
-    //     int bet = 0;
-    //     int sum = 0;
-    //     int aite[2] = {0, 0};
-    //     printf("%d\n", bet); //1
-    //     fflush(stdout);
-    //     scanf("%d", &n);
-    //     aite[0] = n;
-    //     bet = n - 1;
-    //     sum += bet;
-    //     printf("%d\n", bet); //2
-    //     fflush(stdout);
-    //     scanf("%d", &n);
-    //     aite[1] = n;
-    //     if (aite[0] == 0 && aite[1] == 0)
-    //     {                   //defense mode
-    //         int d = -2;     //Derivation
-    //         int n = 10 - 2; //remaining rounds
-    //         bet = (10000 * 2 / n - (n - 1) * d) / 2;
-    //         printf("%d\n", bet); //3
-    //         fflush(stdout);
-    //         sum += bet;
-    //         scanf("%d", &n);
-    //         for (i = 4; i <= 9; ++i)
-    //         {
-    //             bet -= 2;
-    //             printf("%d\n", bet); //4-9
-    //             fflush(stdout);
-    //             sum += bet;
-    //             scanf("%d", &n);
-    //         }
-    //     }
-    //     else
-    //     {                            //attack mode, predict opponent's bet
-    //         for (i = 3; i <= 9; ++i) //3-9
-    //         {
-    //             int r = h(aite[0], aite[1]) - 1;
-    //             bet = r > 0 ? r : 0;
-    //             printf("%d\n", bet);
-    //             fflush(stdout);
-    //             sum += bet;
-    //             scanf("%d", &n);
-    //             aite[0] = aite[1];
-    //             aite[1] = n;
-    //         }
-    //     }
+// for (j = 1; j <= num_game; ++j)
+// {
+//     int bet = 0;
+//     int sum = 0;
+//     int aite[2] = {0, 0};
+//     printf("%d\n", bet); //1
+//     fflush(stdout);
+//     scanf("%d", &n);
+//     aite[0] = n;
+//     bet = n - 1;
+//     sum += bet;
+//     printf("%d\n", bet); //2
+//     fflush(stdout);
+//     scanf("%d", &n);
+//     aite[1] = n;
+//     if (aite[0] == 0 && aite[1] == 0)
+//     {                   //defense mode
+//         int d = -2;     //Derivation
+//         int n = 10 - 2; //remaining rounds
+//         bet = (10000 * 2 / n - (n - 1) * d) / 2;
+//         printf("%d\n", bet); //3
+//         fflush(stdout);
+//         sum += bet;
+//         scanf("%d", &n);
+//         for (i = 4; i <= 9; ++i)
+//         {
+//             bet -= 2;
+//             printf("%d\n", bet); //4-9
+//             fflush(stdout);
+//             sum += bet;
+//             scanf("%d", &n);
+//         }
+//     }
+//     else
+//     {                            //attack mode, predict opponent's bet
+//         for (i = 3; i <= 9; ++i) //3-9
+//         {
+//             int r = h(aite[0], aite[1]) - 1;
+//             bet = r > 0 ? r : 0;
+//             printf("%d\n", bet);
+//             fflush(stdout);
+//             sum += bet;
+//             scanf("%d", &n);
+//             aite[0] = aite[1];
+//             aite[1] = n;
+//         }
+//     }
 
-    //     bet = 10000 - sum;
-    //     printf("%d\n", bet); //10
-    //     fflush(stdout);
-    //     sum += bet;
-    //     scanf("%d", &n);
-    // }
-
-   
+//     bet = 10000 - sum;
+//     printf("%d\n", bet); //10
+//     fflush(stdout);
+//     sum += bet;
+//     scanf("%d", &n);
+// }
