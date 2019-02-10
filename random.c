@@ -1,3 +1,5 @@
+#include <inttypes.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -5,10 +7,12 @@
 int main(int argc,char **argv){
   int n,i,j;
   int num_game;
+  struct timespec spec;
+  clock_gettime(CLOCK_REALTIME, &spec);
 
   num_game=atoi(argv[1]);
 
-  srand(time(NULL));
+  srand(spec.tv_nsec);
 
   for(j=1;j<=num_game;++j){
     int bet;
