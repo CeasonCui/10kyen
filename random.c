@@ -12,7 +12,7 @@ int main(int argc,char **argv){
 
   num_game=atoi(argv[1]);
 
-  srand(spec.tv_nsec);
+  srand(spec.tv_nsec);//srand(time(NULL));
 
   for(j=1;j<=num_game;++j){
     int bet;
