@@ -26,10 +26,10 @@ int main(int argc, char **argv)
             history[a - 1][i - 1] = n;
         }
     }
-    int b = 1;
-    for (b = 1; b <= 10; ++b)
+    int b = 0;
+    for (b = 0; b < 10; b++)
     {
-        if (history[0][b - 1] != history[1][b - 1])
+        if (history[0][b] != history[1][b])
             break;
     }
     if (b == 10)
@@ -48,10 +48,10 @@ int main(int argc, char **argv)
         fflush(stdout);
         scanf("%d", &n);
         history[2][i - 1];
-        int c = 1;
-        for (c = 1; c <= 10; ++c)
+        int c = 0;
+        for (c = 0; c < 10; c++)
         {
-            if (history[1][c - 1] != history[2][c - 1])
+            if (history[1][c] != history[2][c])
                 break;
         }
         if (c == 10) //GUDING
@@ -232,3 +232,4 @@ int main(int argc, char **argv)
 //     sum += bet;
 //     scanf("%d", &n);
 // }
+ 
