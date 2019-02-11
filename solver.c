@@ -16,14 +16,14 @@ int main(int argc, char **argv)
     int history[3][10];
     num_game = atoi(argv[1]);
     srand(time(NULL));
-    for (int a = 1; a <= 2; ++a)
+    for (int a = 0; a < 2; a++)
     {
-        for (i = 1; i <= 10; ++i)
+        for (i = 0; i < 10; i++)
         {
             printf("1000\n");
             fflush(stdout);
             scanf("%d", &n);
-            history[a - 1][i - 1] = n;
+            history[a][i] = n;
         }
     }
     int b = 0;
@@ -42,12 +42,13 @@ int main(int argc, char **argv)
             fflush(stdout);
             remain -= bet;
             scanf("%d", &n);
+            history[2][i - 1] = n;
         }
         bet = remain;
         printf("%d\n", bet); //10
         fflush(stdout);
         scanf("%d", &n);
-        history[2][i - 1];
+        history[2][9] = n;
         int c = 0;
         for (c = 0; c < 10; c++)
         {
@@ -73,12 +74,12 @@ int main(int argc, char **argv)
                     printf("%d\n", bet); //1
                     fflush(stdout);
                     scanf("%d", &n);
-                    for (i = 2; i <= 10; ++i)
+                    for (i = 1; i < 10; i++)
                     {
-                        if (history[2][i - 1] == 0)
+                        if (history[2][i] == 0)
                             bet = 0;
                         else
-                            bet = history[2][i - 1] - 1;
+                            bet = history[2][i] - 1;
                         printf("%d\n", bet); //2-10
                         fflush(stdout);
                         sum += bet;
@@ -87,12 +88,12 @@ int main(int argc, char **argv)
                 }
                 else
                 {
-                    for (i = 1; i <= 9; ++i)
+                    for (i = 0; i < 9; i++)
                     {
-                        if (history[2][i - 1] == 0)
+                        if (history[2][i] == 0)
                             bet = 0;
                         else
-                            bet = history[2][i - 1] - 1;
+                            bet = history[2][i] - 1;
                         printf("%d\n", bet); //2-9
                         fflush(stdout);
                         sum += bet;
@@ -232,4 +233,3 @@ int main(int argc, char **argv)
 //     sum += bet;
 //     scanf("%d", &n);
 // }
- 
