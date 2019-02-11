@@ -156,7 +156,7 @@ int main(int argc, char **argv)
                 // }
                 bet = history_exp[b] - 1;
                 bet = bet > 0 ? bet : 0; // prevent minus
-                bet = (10000 - sum > bet) ? bet : (10000 - sum); // prevent more than 10000
+                // bet = (10000 - sum > bet) ? bet : (10000 - sum); // prevent more than 10000
                 printf("%d\n", bet); //1-9
                 fflush(stdout);
                 sum += bet;
