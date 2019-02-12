@@ -58,7 +58,7 @@ int main(int argc, char **argv)
                 if (history[2][9] > 5000)   //if 10th round over 5000, we should give up the first round
                 {
                     bet = 10000;
-                    for (int d = 1; d <= 10; ++d)
+                    for (int d = 2; d <= 10; ++d)
                     {
                         if (history[2][d - 1] != 0)
                             bet = bet - history[2][d - 1] + 1;
@@ -109,7 +109,8 @@ int main(int argc, char **argv)
                 int sum = 0;
                 int d = -2; 
                 int m = 10; 
-                bet = (10000 * 2 / m - (m - 1) * d) / 2;    //equal difference series
+                //bet = (10000 * 2 / m - (m - 1) * d) / 2;    //equal difference series
+                bet=1;
                 printf("%d\n", bet); //1
                 fflush(stdout);
                 sum += bet;
@@ -117,6 +118,7 @@ int main(int argc, char **argv)
                 for (i = 2; i <= 9; ++i)
                 {
                     bet -= 2;
+                    bet=bet>0?bet:0;
                     printf("%d\n", bet); //2-9
                     fflush(stdout);
                     sum += bet;
